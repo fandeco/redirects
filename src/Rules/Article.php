@@ -25,7 +25,7 @@ class Article extends Rule implements IRule
         $uri = $this->redirect()->request()->get();
         if ($uri === '/' && !empty($_GET['artikul_1c'])) {
             $article = $_GET['artikul_1c'];
-            $this->setTo('редирект на страницу с товаром ' . $article);
+            $this->setTo('редирект на страницу с товаром ' . $article,301,false);
             /* if ($Product = $this->modx->getObject('msProductData', ['artikul_1c' => $article])) {
                  $url = $this->modx->makeUrl($Product->get('id'), 'web', '', 'full');
                  $this->setTo($url);

@@ -46,10 +46,10 @@ abstract class Rule
         return $this->redirect;
     }
 
-    public function setTo(string $to, int $code = 301)
+    public function setTo(string $to, int $code = 301, $addArg = true)
     {
         $this->setRule();
-        $this->redirect()->setRedirect($to, $this->from(), $code, $this->case());
+        $this->redirect()->setRedirect($to, $this->from(), $code, $this->case(), $addArg);
         return $this;
     }
 

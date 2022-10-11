@@ -37,6 +37,7 @@ class Redirect
      */
     private $redirectAllowed = true;
     private $redirectFound = false;
+    private $add_args = true;
     private $redirectRule;
     private $chain_redirects = [];
     /**
@@ -89,9 +90,10 @@ class Redirect
     }
 
 
-    public function setRedirect($to, $from, $code, $case)
+    public function setRedirect($to, $from, $code, $case, $addArg = true)
     {
         $this->redirectFound = true;
+        $this->add_args = $addArg;
         $this->request()->update($to);
         $this->to = $to;
         $this->from = $from;
@@ -113,13 +115,21 @@ class Redirect
         return $this->chain_redirects;
     }
 
+    public function add_args()
+    {
+        return $this->add_args;
+    }
+
     public function to()
     {
         $to = $this->to;
         if (!is_null($to)) {
-            if ($args = $this->request()->args()) {
-                $to .= $args;
+            if ($this->add_args()) {
+                if ($args = $this->request()->args()) {
+                    $to .= $args;
+                }
             }
+
             // Добавление домена только если ссылка не является мультидоменной
             if (!$this->isDomain($to) && $site = $this->site()) {
                 $to = $site->getUrl($to);

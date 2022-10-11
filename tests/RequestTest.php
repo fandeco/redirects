@@ -22,6 +22,40 @@ use Tests\TestCase;
 class RequestTest extends TestCase
 {
 
+    public function testGetSearchRunFuntion()
+    {
+
+        $Site = new Site('https://dev2.massive.ru');
+        $Request = new Request('/catalog/detskie--ljustra-potolochnaja.php', ['article' => 'FHR']);
+
+        $Redirect = new Redirect($Site, $Request);
+
+        $Urls = new Urls($Site);
+        $Urls->add('/catalog/podvesnyie-svetilniki/', '/catalog/podvesnyie/');
+        $Urls->add('https://dev2.massive.ru/catalog/detskie--ljustra-potolochnaja', 'https://fandeco.ru/catalog/ljustra-potolochnaja/interer-dlya-detskoj');
+
+        $Redirect->setUrls($Urls);
+
+        // Основные правила
+        $Redirect->addRule(Format::class); // Срабатывает первым всегда чтобы определи что это статичны файл
+        $Redirect->addRule(Index::class);
+        $Redirect->addRule(Slash::class);
+
+        // Правила остальные
+        $Redirect->addRule(Search::class);
+        $Redirect->addRule(Article::class);
+
+
+        $Redirect->process();
+
+
+        echo '<pre>';
+        print_r($Redirect->toArray());
+        die;
+
+    }
+
+
     public function testGetSearchDomain()
     {
 
