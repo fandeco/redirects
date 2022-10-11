@@ -36,7 +36,6 @@ class RequestTest extends TestCase
 
         $Redirect->setUrls($Urls);
 
-
         // Основные правила
         $Redirect->addRule(Format::class); // Срабатывает первым всегда чтобы определи что это статичны файл
         $Redirect->addRule(Index::class);
