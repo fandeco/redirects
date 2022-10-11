@@ -11,7 +11,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class ExceptionClient extends Exception
+class ExceptionRule extends Exception
 {
 
 }

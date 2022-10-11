@@ -35,7 +35,7 @@ tests = Tests\
     }
   ],
   "require": {
-    "webnitros/app": "^1.0.0"
+    "webnitros/redirects": "^1.0.0"
   }
 }
 ```
